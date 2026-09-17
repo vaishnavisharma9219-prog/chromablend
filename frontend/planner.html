@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Planner — Chroma Blend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/planner.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Top Navigation & Disguised Long-Press Trigger -->
+    <header class="app-header">
+      <div class="header-left">
+        <!-- The stealth logo trigger: Long-pressing here activates the private passcode modal -->
+        <div id="logo-trigger" class="stealth-logo-trigger" title="Chroma Blend">
+          <div class="logo-symbol">
+            <svg class="progress-ring" viewBox="0 0 32 32">
+              <circle id="logo-progress-circle" class="progress-ring-circle" cx="16" cy="16" r="14" fill="transparent"/>
+            </svg>
+            <svg class="logo-svg" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="13" stroke="#2D2B28" stroke-width="1.5"/>
+              <path d="M11 20C12.5 14 19.5 14 21 20" stroke="#9688A6" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="16" cy="11" r="2.5" fill="#758D9E"/>
+            </svg>
+          </div>
+          <span class="logo-text">Chroma Blend</span>
+        </div>
+
+        <div id="header-current-date" class="header-date-badge">
+          Today
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="user-greeting">
+          Good morning, <strong id="current-user-name">Friend</strong>.
+        </div>
+        <button class="btn-secondary logout-trigger" title="Sign out of Chroma Blend">
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <!-- Productivity Workspace (3 Columns) -->
+    <main class="workspace-grid">
+      <!-- 1. DAILY AGENDA -->
+      <section class="workspace-column" aria-label="Daily Planner">
+        <div class="column-header">
+          <div class="column-title-group">
+            <h2 class="column-title">Daily Agenda</h2>
+          </div>
+          <span class="badge badge-charcoal">Today</span>
+        </div>
+
+        <div class="planner-sections">
+          <!-- Morning -->
+          <div class="planner-section-block">
+            <div class="section-title">
+              <span>Morning</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              </svg>
+            </div>
+            <ul id="planner-morning-list" class="planner-items"></ul>
+            <form id="planner-morning-form" class="quick-add-input-row">
+              <input type="text" id="planner-morning-input" placeholder="Add morning focus..." autocomplete="off">
+              <button type="submit" class="btn-secondary">+</button>
+            </form>
+          </div>
+
+          <!-- Afternoon -->
+          <div class="planner-section-block">
+            <div class="section-title">
+              <span>Afternoon</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+              </svg>
+            </div>
+            <ul id="planner-afternoon-list" class="planner-items"></ul>
+            <form id="planner-afternoon-form" class="quick-add-input-row">
+              <input type="text" id="planner-afternoon-input" placeholder="Add afternoon task..." autocomplete="off">
+              <button type="submit" class="btn-secondary">+</button>
+            </form>
+          </div>
+
+          <!-- Evening -->
+          <div class="planner-section-block">
+            <div class="section-title">
+              <span>Evening</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </div>
+            <ul id="planner-evening-list" class="planner-items"></ul>
+            <form id="planner-evening-form" class="quick-add-input-row">
+              <input type="text" id="planner-evening-input" placeholder="Add evening plan..." autocomplete="off">
+              <button type="submit" class="btn-secondary">+</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TASKS / TO-DO -->
+      <section class="workspace-column" aria-label="Tasks">
+        <div class="column-header">
+          <div class="column-title-group">
+            <h2 class="column-title">Tasks</h2>
+            <span id="tasks-count-badge" class="column-counter">0</span>
+          </div>
+          <span class="form-hint">A few things for today</span>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="tasks-filter-tabs">
+          <button type="button" class="filter-tab active" data-filter="all">All</button>
+          <button type="button" class="filter-tab" data-filter="active">Active</button>
+          <button type="button" class="filter-tab" data-filter="completed">Done</button>
+        </div>
+
+        <!-- Add Task Form -->
+        <form id="add-task-form" class="add-task-box">
+          <input type="text" id="task-title-input" placeholder="What needs to be done?" required autocomplete="off">
+          <div class="task-inputs-row">
+            <select id="task-priority-select" title="Priority">
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+            <input type="time" id="task-time-input" title="Scheduled time">
+            <button type="submit" class="btn-primary" style="padding: 0.4rem 1rem;">Add</button>
+          </div>
+        </form>
+
+        <!-- Tasks List -->
+        <ul id="tasks-list" class="tasks-list"></ul>
+      </section>
+
+      <!-- 3. NOTES -->
+      <section class="workspace-column" aria-label="Notes">
+        <div class="column-header">
+          <div class="column-title-group">
+            <h2 class="column-title">Notes</h2>
+            <span id="notes-count-badge" class="column-counter">0</span>
+          </div>
+          <button id="new-note-btn" class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+            + New Note
+          </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="notes-search-bar">
+          <input type="text" id="notes-search-input" placeholder="Search notes..." autocomplete="off">
+        </div>
+
+        <!-- Notes List -->
+        <div id="notes-list" class="notes-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Stealth Private Access Verification Modal -->
+  <div id="private-access-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Quick Access Verification</h3>
+      <p style="margin-bottom: 1.25rem; font-size: 0.88rem; color: var(--text-secondary);">
+        Please enter your personal verification code to proceed.
+      </p>
+
+      <div id="access-pin-error" class="error-banner" style="margin-bottom: 1rem;"></div>
+
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="access-pin-input" class="form-label">Access PIN</label>
+        <input type="password" id="access-pin-input" class="form-input" placeholder="••••" maxlength="8" pattern="\d*" inputmode="numeric" autocomplete="off">
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <button type="button" id="access-pin-cancel" class="btn-secondary">Cancel</button>
+        <button type="button" id="access-pin-submit" class="btn-primary">Enter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Note Creation Modal -->
+  <div id="note-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 style="margin-bottom: 1rem;">New Note</h3>
+      <form id="note-form" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="form-group">
+          <label for="note-title-input" class="form-label">Title</label>
+          <input type="text" id="note-title-input" class="form-input" placeholder="e.g. Blue Folder Reminders" required>
+        </div>
+        <div class="form-group">
+          <label for="note-content-input" class="form-label">Note Content</label>
+          <textarea id="note-content-input" class="form-input" rows="4" placeholder="Type your thoughts here..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tag Tone</label>
+          <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 0.25rem;">
+            <label><input type="radio" name="note-color" value="charcoal" checked> Charcoal</label>
+            <label><input type="radio" name="note-color" value="lavender"> Lavender</label>
+            <label><input type="radio" name="note-color" value="sage"> Sage</label>
+            <label><input type="radio" name="note-color" value="peach"> Peach</label>
+            <label><input type="radio" name="note-color" value="blue"> Blue</label>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 0.5rem;">
+          <button type="button" id="note-modal-close" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/longpress.js"></script>
+  <script src="/js/planner.js"></script>
+  <script src="/js/tasks.js"></script>
+  <script src="/js/notes.js"></script>
+  <script>
+    // Verify session on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuthState();
+    });
+  </script>
+</body>
+</html>

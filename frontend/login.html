@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Chroma Blend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-brand">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="#2D2B28" stroke-width="1.5"/>
+            <path d="M11 20C12.5 14 19.5 14 21 20" stroke="#9688A6" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="11" r="2.5" fill="#758D9E"/>
+          </svg>
+          <span class="serif-font" style="font-size: 1.25rem; letter-spacing: 0.08em; text-transform: uppercase;">Chroma Blend</span>
+        </div>
+        <h1 class="auth-title">Welcome back.</h1>
+        <p class="auth-subtitle">Sign in to your personal daily planner.</p>
+      </div>
+
+      <div id="auth-error" class="error-banner"></div>
+
+      <form id="login-form" class="auth-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" id="email" class="form-input" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn-primary auth-btn">Sign In</button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have a planner account? <a href="/register.html">Create one</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

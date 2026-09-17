@@ -1,0 +1,85 @@
+/* ==========================================================================
+   CHROMA BLEND — Responsive & Accessibility Styles
+   ========================================================================== */
+
+/* Tablet & Smaller Desktops */
+@media (max-width: 1024px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .workspace-column {
+    min-height: auto;
+  }
+
+  .ai-planner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vault-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 640px) {
+  .app-wrapper, .private-wrapper {
+    padding: 1rem 1rem 3rem 1rem;
+  }
+
+  .app-header, .private-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .private-header .quick-exit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .task-inputs-row {
+    flex-direction: column;
+  }
+
+  .task-inputs-row select,
+  .task-inputs-row input[type="time"] {
+    width: 100%;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .emergency-actions-row {
+    flex-direction: column;
+  }
+
+  .private-nav {
+    overflow-x: auto;
+  }
+
+  .modal-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
